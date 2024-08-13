@@ -1,0 +1,61 @@
+# Configuração do Docker Compose para orquestrar os serviços
+
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:14
+    # Container para o banco de dados PostgreSQL.
+    environment:
+      - POSTGRES_DB=testDB
+      # Nome do banco de dados.
+      - POSTGRES_USER=bobUser
+      # Nome de usuário do banco.
+      - POSTGRES_PASSWORD=teste
+      # Senha do banco.
+      - TZ=America/Sao_Paulo
+      # Configuração de fuso horário do container.
+      - PGTZ=America/Sao_Paulo
+      # Fuso horário específico para PostgreSQL.
+    ports:
+      - "5432:5432"
+      # Mapeamento da porta do PostgreSQL para acesso local.
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    # Container para o Jaeger, utilizado para rastreamento de traces.
+    container_name: jaeger
+    ports:
+      - "8081:16686"
+      # Interface de usuário do Jaeger.
+      - "14268"
+      # Porta para envio de spans.
+      - "14250"
+      # Porta para gRPC.
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    # Container para o OpenTelemetry Collector.
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yml"]
+    # Configura o Collector utilizando o arquivo especificado.
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+      # Monta o arquivo de configuração do Collector no container.
+    ports:
+      - "1888:1888"
+      # pprof extension para profiling.
+      - "13133:13133"
+      # health_check extension para verificação de saúde.
+      - "4317:4317"
+      # Porta para OTLP gRPC receiver.
+      - "4318:4318"
+      # Porta para OTLP HTTP receiver.
+      - "55679:55679"
+      # zpages extension para debugging.
+    depends_on:
+      - jaeger
+      # Garante que o Jaeger esteja disponível antes de iniciar o Collector.
+    links:
+      - jaeger
+      # Cria uma rede interna entre o Collector e o Jaeger.

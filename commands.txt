@@ -1,0 +1,18 @@
+// Inicializa o docker com todos os serviços
+docker compose up -d
+
+// Visualizar e verificar se todos os serviços estão ativos
+docker ps
+
+// Inicializa o servidor
+npm start
+
+// Conferir logs no Docker
+docker logs otel-collector
+            [nomeDoServiço]
+
+// Conferir logs no jaeger
+http://localhost:8081/search
+
+// Testar rota com as analises de performance e logs
+GET http://localhost:8080/students

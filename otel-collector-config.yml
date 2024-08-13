@@ -1,0 +1,47 @@
+# Configuração do OpenTelemetry Collector
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        # Recebe dados via gRPC, o protocolo mais rápido e eficiente para comunicação binária.
+        endpoint: 0.0.0.0:4317
+      http:
+        # Alternativa para receber dados via HTTP.
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  debug:
+    # Exportador para exibir logs detalhados no console, útil para depuração.
+    verbosity: detailed
+
+  otlp:
+    # Exportador para enviar dados para o Jaeger, permitindo rastreamento de traces.
+    endpoint: jaeger:4317
+    tls:
+      insecure: true # Configuração de TLS insegura, adequada para ambiente de desenvolvimento.
+
+processors:
+  batch: {}
+  # Processador que acumula dados em lotes para envio, melhorando a eficiência do sistema.
+
+extensions:
+  health_check: {}
+  # Extensão para verificar a saúde do Collector, permitindo monitoramento básico.
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      # Pipeline de traces, gerenciando o fluxo de dados dos receivers para os exportadores.
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlp]
+      # Exporta dados de traces tanto para o console quanto para o Jaeger.
+
+    metrics:
+      # Pipeline para métricas, separando o fluxo de dados de métricas dos de traces.
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+      # Exporta métricas apenas para o console, sem enviar ao Jaeger.
