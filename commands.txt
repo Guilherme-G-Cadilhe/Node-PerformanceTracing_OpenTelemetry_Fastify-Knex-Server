@@ -1,18 +1,20 @@
-// Inicializa o docker com todos os serviços
+// Inicializa o Docker com todos os serviços definidos no arquivo docker-compose.yml
 docker compose up -d
 
-// Visualizar e verificar se todos os serviços estão ativos
+// Visualiza e verifica se todos os serviços estão ativos no Docker
 docker ps
 
-// Inicializa o servidor
+// Inicializa o servidor Fastify
 npm start
 
-// Conferir logs no Docker
+// Conferir os logs do OpenTelemetry Collector no Docker
 docker logs otel-collector
-            [nomeDoServiço]
 
-// Conferir logs no jaeger
+// Conferir os logs de outro serviço específico no Docker
+docker logs [nomeDoServiço]
+
+// Acessar a interface do Jaeger para visualizar os traces coletados
 http://localhost:8081/search
 
-// Testar rota com as analises de performance e logs
+// Testar a rota /students e analisar a performance e logs gerados
 GET http://localhost:8080/students
