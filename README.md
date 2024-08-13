@@ -1,7 +1,3 @@
-# Node-PerformanceTracing_OpenTelemetry_Fastify-Knex-Server
-
-Monitoramento de Performance de Aplicativos Node.js. Implementação de monitoramento utilizando OpenTelemetry e Jaeger para instrumentação de APIs com Fastify e consultas com Knex, executando em um ambiente Docker para medição precisa de desempenho e análise de status codes retornados.
-
 <h1 align="center">
   Node.js API com Monitoramento de Performance usando OpenTelemetry
 </h1>
@@ -17,8 +13,8 @@ Monitoramento de Performance de Aplicativos Node.js. Implementação de monitora
 ---
 
 <p align="center">
-  <img alt="overviewJaeger" title="overviewPage" src="./images/overview.png"/>
-  <img alt="detailsJaeger" title="detailsPage" src="./images/details.png"/>
+  <img alt="overviewJaeger" title="overviewPage"  height="300px" src="./images/overview.png"/>
+  <img alt="detailsJaeger" title="detailsPage" " height="300px" src="./images/details.png"/>
 </p>
 
 ---
