@@ -13,8 +13,8 @@
 ---
 
 <p align="center">
-  <img alt="overviewJaeger" title="overviewPage"  height="300px" src="./images/overview.png"/>
-  <img alt="detailsJaeger" title="detailsPage" " height="300px" src="./images/details.png"/>
+  <img alt="overviewJaeger" title="overviewPage"  height="250px" src="./images/overview.png"/>
+  <img alt="detailsJaeger" title="detailsPage" " height="250px" src="./images/details.png"/>
 </p>
 
 ---
